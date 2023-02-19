@@ -1,8 +1,11 @@
-import express, { Express, Request, Response } from "express";
-import { dbConnection } from "./database/config"
+import express, { Express } from "express";
+import { dbConnection } from "./database/config";
+import { usuarioController } from "./controller/UsuarioController";
+import { eventosController } from "./controller/EventosController";
 
 const cors = require("cors");
 require("dotenv").config(); // con esto importo las variables de entorno
+
 
 // crear el servidor de expres
 const app: Express = express();
@@ -22,8 +25,8 @@ app.use(express.static("public"));
 app.use(express.json());
 
 // Rutas
-app.use("/api/usuarios", require("./controller/UsuarioController"));
-// TODO: EVENTOS crud
+app.use("/api/usuarios", usuarioController);
+app.use("/api/eventos", eventosController);
 
 // escuchar las peticiones
 app.listen(process.env.PORT, () => {

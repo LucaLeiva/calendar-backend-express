@@ -1,17 +1,17 @@
-/*
-  Rutas de Usuarios
-  host + /api/usuarios
-*/
 import { Router } from "express";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validarCampos";
 import { validarJWT } from "../middlewares/validarJwt";
 
+/*
+  Rutas de Usuarios
+  host + /api/usuarios
+*/
 
-const router: Router = Router();
+export const usuarioController: Router = Router();
 const { crearUsuario, loginUsuario, renovarToken } = require("../service/UsuarioService")
 
-router.post("/",
+usuarioController.post("/",
   [ // middlewares, en este caso de validacion y chequeo de validaciones
     check("nombre", 'El nombre es obligatorio').not().isEmpty(),
     check("email", "El email es obligatorio").isEmail(),
@@ -20,7 +20,7 @@ router.post("/",
   ],
   crearUsuario);
 
-router.post("/login",
+  usuarioController.post("/login",
   [
     check("email", "El email es obligatorio").isEmail(),
     check("contraseña", "La contraseña debe ser de 6 caracteres").isLength({min: 6}),
@@ -29,10 +29,8 @@ router.post("/login",
   loginUsuario);
 
 // TODO ver si se puede juntar el de login con este
-router.post("/renew",
+usuarioController.post("/renew",
   [
     validarJWT
-  ]
-  ,renovarToken);
-
-module.exports = router;
+  ],
+  renovarToken);

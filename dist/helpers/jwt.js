@@ -6,7 +6,7 @@ const generarJWT = (uid, nombre) => {
     return new Promise((resolve, reject) => {
         const payload = { uid, nombre };
         jwt.sign(payload, "Esto-Es-UnA-Palbr@_SecretA12341267", {
-            expiresIn: "2h"
+            expiresIn: "24h"
         }, (error, token) => {
             if (error) {
                 console.log(error);
